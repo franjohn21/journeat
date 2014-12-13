@@ -13,11 +13,19 @@ end
 
 post '/search' do
   bounding_box = {
-    sw_latitutde: params[:sw_lat],
-    sw_longitude: params[:sw_long],
-    ne_latitutde: params[:ne_lat],
-    ne_longitude: params[:ne_long],
+    sw_latitutde: [params[:start_lat], params[:end_lat]].min,
+    sw_longitude: [params[:start_lng], params[:end_lng]].min,
+    ne_latitutde: [params[:start_lat], params[:end_lat]].max,
+    ne_longitude: [params[:start_lng], params[:end_lng]].max
   }
 
-  results = $yelp.search_by_bounding_box(bounding_box, { term: params[:term] })
+  results = []
+  response = $yelp.search_by_bounding_box(bounding_box, { term: params[:term] })
+  response.businesses.each do |business|
+    results.push({
+      "name" => business.name,
+      "lat" => business.location.coordinate.latitude,
+      "lng" => business.location.coordinate.longitude
+    })
+  end
 end
