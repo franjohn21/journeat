@@ -28,4 +28,7 @@ post '/search' do
       "lng" => business.location.coordinate.longitude
     })
   end
+
+  content_type :json
+  results.to_json
 end
