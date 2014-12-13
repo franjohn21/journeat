@@ -21,13 +21,15 @@ journeatApp.controller('journeatCtrl', function($scope){
     infowindow.open(map, marker);
     }
   }
-
   var mapOptions = {
     center: new google.maps.LatLng(37.7833, -122.4167),
     zoom: 6
   };
   var map = new google.maps.Map(document.getElementById("map-canvas"),
       mapOptions);
+  var directionsDisplay = new google.maps.DirectionsRenderer();
+  var directionsService = new google.maps.DirectionsService();
+  directionsDisplay.setMap(map);
   $scope.handleQuery = function(){
     var geocoder = new google.maps.Geocoder();
 
@@ -40,14 +42,23 @@ journeatApp.controller('journeatCtrl', function($scope){
     geocoder.geocode(startRequest, function(results, status) {
       startlat = results[0].geometry.location.k
       startlng = results[0].geometry.location.D
-      addMarkers(results, status)
       });
     geocoder.geocode(endRequest, function(results, status) {
       endlat = results[0].geometry.location.k
       endlng = results[0].geometry.location.D
-      addMarkers(results, status)
       });
-
+    var request = {
+      origin: $scope.start,
+      destination: $scope.end,
+      travelMode: google.maps.TravelMode.DRIVING
+    }
+    directionsService.route(request, function(response, status){
+      console.log(response)
+      console.log(status)
+      if (status == google.maps.DirectionsStatus.OK) {
+           directionsDisplay.setDirections(response);
+         }
+    })
     start = {lat: startlat, lng: startlng};
     end = {lat: endlat, lng: endlng};
     $.ajax({
