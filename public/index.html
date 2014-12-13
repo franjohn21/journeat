@@ -19,10 +19,10 @@
 </head>
 <body>
 <div id="content" ng-controller="journeatCtrl">
-  <form id="queryform" ng-submit="handleQuery()">
-    <input placeholder="Enter Starting Point" name="start" />
-    <input placeholder="Enter Ending Point" name="end" />
-    <input placeholder="Search for" name="search" />
+  <form id="queryform" ng-submit="handleQuery()" >
+    <input placeholder="Enter Starting Point" name="start" ng-model="start" />
+    <input placeholder="Enter Ending Point" name="end" ng-model="end" />
+    <input placeholder="Search for" name="search" ng-model="search" />
     <input type="submit" />
   </form>
 </div>
