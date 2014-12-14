@@ -7,21 +7,17 @@ journeatApp.controller('journeatCtrl', function($scope){
   $scope.search = ""
   var marker, infowindow, startlat, startlng, endlat, endlng;
 
-  function addMarkers(results, status)
+  function addMarkers(latlng, name)
   {
 
-    if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
           marker = new google.maps.Marker({
+          position: latlng,
           map: map
        });
-    marker.setPosition(results[0].geometry.location);
     infowindow = new google.maps.InfoWindow();
-    var content = '<strong>' + results[0].formatted_address + '</strong>';
+    var content = '<strong>' + name + '</strong>';
     infowindow.setContent(content);
-    infowindow.open(map, marker);
     }
-  }
 
   var mapOptions = {
     center: new google.maps.LatLng(37.7833, -122.4167),
@@ -35,16 +31,6 @@ journeatApp.controller('journeatCtrl', function($scope){
   directionsDisplay.setMap(map);
 
   $scope.handleQuery = function() {
-    var geocoder = new google.maps.Geocoder();
-
-    var startRequest = {
-      address: $scope.start
-    }
-
-    var endRequest = {
-      address: $scope.end
-    }
-
     var request = {
       origin: $scope.start,
       destination: $scope.end,
@@ -70,7 +56,12 @@ journeatApp.controller('journeatCtrl', function($scope){
             term: $scope.search
           }
         }).done(function(data){
-          console.log(data)
+          for(var i=0; i< data.length; i++)
+          {
+            var latlng = new google.maps.LatLng(data[i].lat, data[i].lng)
+            addMarkers(latlng, data[i].name)
+
+          }
         });
       }
     });
