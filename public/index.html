@@ -11,6 +11,7 @@
     application.css is where you put your styles
   -->
   <link rel="stylesheet" href="/css/application.css">
+  <link rel="stylesheet" href="/css/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/styles.css">
   <!-- Load Vollkorn font -->
   <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,400' rel='stylesheet' type='text/css'>
@@ -21,7 +22,7 @@
 <body>
 <div id="content" ng-controller="journeatCtrl">
   <div id="navbar">
-    <div id="name">journeat</div>
+    <div id="name">journeat <span id="smalltext">find places to eat on your journey</span></div>
   </div>
   <div id="search">
     <form id="queryform" ng-submit="handleQuery()" >
@@ -29,7 +30,7 @@
       <input class="search-field" placeholder="Enter A Starting Destination" name="start" ng-model="start" />
       <input class="search-field" placeholder="Enter Ending Destination" name="end" ng-model="end" />
       <input class="search-field" placeholder="Search (ex. coffee, groceries...)" name="search" ng-model="search" />
-      <input id="submit" type="submit" />
+      <button id="submit" type="submit" >Submit</button>
     </div>
     </form>
   </div>

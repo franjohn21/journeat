@@ -8,13 +8,15 @@ journeatApp.controller('journeatCtrl', function($scope) {
   var startlat, startlng, endlat, endlng;
   var markers = [];
   var infowindows = []
+  var waypoints = []
   var addMarkers = function(latlng, data) {
     var marker = new google.maps.Marker({
       position: latlng,
       map: map,
       title: data.name,
-      animation: google.maps.Animation.DROP
+      animation: google.maps.Animation.DROP    
     });
+
     var content = [
       '<div class="info-window">',
       '<img class="info-image" src="' + data.image + '" />',
@@ -41,12 +43,13 @@ journeatApp.controller('journeatCtrl', function($scope) {
   };
   var reRoute = function(data)
   {
-    waylat = $(this).attr("data-lat")
-    waylong = $(this).attr("data-long")
+    waylat = $(this).attr("data-lat");
+    waylong = $(this).attr("data-long");
+    waypoints.push({location: waylat + " " + waylong, stopover: true})
     var request = {
       origin: $scope.start,
       destination: $scope.end,
-      waypoints: [{location: waylat +" "+ waylong, stopover:true  }],
+      waypoints: waypoints,
       optimizeWaypoints: true,
       travelMode: google.maps.TravelMode.DRIVING
     };
@@ -84,6 +87,8 @@ journeatApp.controller('journeatCtrl', function($scope) {
   };
 
   $scope.handleQuery = function() {
+    $("#submit").html('<i class="fa fa-spin fa-spinner"></i>')
+    waypoints = [];
     clearMarkers();
     var request = {
       origin: $scope.start,
@@ -110,7 +115,6 @@ journeatApp.controller('journeatCtrl', function($scope) {
         endlat = response.routes[0].legs[0].end_location.k;
         endlng = response.routes[0].legs[0].end_location.D;
         coords.push({latitude: endlat, longitude: endlng})
-
         $.ajax({
           url: '/search',
           method: 'POST',
@@ -123,6 +127,7 @@ journeatApp.controller('journeatCtrl', function($scope) {
           for (var i = 0; i < data.length; i++) {
             var latlng = new google.maps.LatLng(data[i].lat, data[i].lng)
             addMarkers(latlng, data[i])
+            $("#submit").html('Submit')
           }
         });
       }

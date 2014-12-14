@@ -28,7 +28,7 @@
   margin: 15px auto;
   width: 100%;
 }
-#queryform input {
+#queryform input, #submit {
   margin-left: 1%;
   width: 23%;
 }
@@ -38,9 +38,12 @@
   border-bottom: 1px solid #ccc;
 }
 
-
+#smalltext{
+  font-size: 0.5em;
+  font-style: italic;
+}
 #submit, .routebutton{
-  padding: 0;
+  padding: 10;
   border: 1px solid #ccc;
   color: white;
   transition: 0.5s;
