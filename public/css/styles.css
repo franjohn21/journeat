@@ -20,26 +20,24 @@
 
 #search {
 }
-
-#queryform {
-  margin: 10px auto;
-  width: 80%;
+.center{
+  width:80%;
+  margin: 0px auto;
 }
-
+#queryform {
+  margin: 15px auto;
+  width: 100%;
+}
 #queryform input {
-  margin-left: 10px;
-  width: 24%;
+  margin-left: 1%;
+  width: 23%;
 }
 
 .search-field {
-  padding-left: 5px;
   border: none;
   border-bottom: 1px solid #ccc;
 }
 
-#queryform input:first-child {
-  margin-left: 0;
-}
 
 #submit, .routebutton{
   padding: 0;

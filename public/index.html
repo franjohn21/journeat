@@ -25,10 +25,12 @@
   </div>
   <div id="search">
     <form id="queryform" ng-submit="handleQuery()" >
-      <input class="search-field" placeholder="Enter Starting Point" name="start" ng-model="start" />
-      <input class="search-field" placeholder="Enter Ending Point" name="end" ng-model="end" />
-      <input class="search-field" placeholder="Search for" name="search" ng-model="search" />
+      <div class="center">
+      <input class="search-field" placeholder="Enter A Starting Destinatino" name="start" ng-model="start" />
+      <input class="search-field" placeholder="Enter Ending Destination" name="end" ng-model="end" />
+      <input class="search-field" placeholder="Search (ex. coffee, groceries...)" name="search" ng-model="search" />
       <input id="submit" type="submit" />
+    </div>
     </form>
   </div>
 </div>

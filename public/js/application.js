@@ -1,8 +1,8 @@
 var journeatApp = angular.module('journeatApp', []);
 
 journeatApp.controller('journeatCtrl', function($scope) {
-  $scope.start = "633 Folsom St, San Francisco, CA";
-  $scope.end = "1722 18th Ave, San Francisco, CA";
+  $scope.start = "";
+  $scope.end = "";
   $scope.search = ""
 
   var startlat, startlng, endlat, endlng;
@@ -69,7 +69,7 @@ journeatApp.controller('journeatCtrl', function($scope) {
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   var directionsDisplay = new google.maps.DirectionsRenderer();
   var directionsService = new google.maps.DirectionsService();
-  var numrequests = 5
+  var numrequests = 10
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById('directions-panel'));
   var clearInfoWindows = function(){
