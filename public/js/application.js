@@ -1,23 +1,35 @@
-
 var journeatApp = angular.module('journeatApp', []);
 
-journeatApp.controller('journeatCtrl', function($scope){
+journeatApp.controller('journeatCtrl', function($scope) {
   $scope.start = "633 Folsom St, San Francisco, CA";
   $scope.end = "1722 18th Ave, San Francisco, CA";
   $scope.search = ""
-  var marker, infowindow, startlat, startlng, endlat, endlng;
 
-  function addMarkers(latlng, name)
-  {
+  var startlat, startlng, endlat, endlng;
 
-          marker = new google.maps.Marker({
-          position: latlng,
-          map: map
-       });
-    infowindow = new google.maps.InfoWindow();
+  var addMarkers = function(latlng, name) {
+    console.log(name);
+
+    var marker = new google.maps.Marker({
+      position: latlng,
+      map: map,
+      title: name,
+      animation: google.maps.Animation.DROP
+    });
+
     var content = '<strong>' + name + '</strong>';
-    infowindow.setContent(content);
-    }
+    var infowindow = new google.maps.InfoWindow({
+      content: content
+    });
+
+    google.maps.event.addListener(marker, 'mouseover', function() {
+      infowindow.open(map, marker);
+    });
+
+    google.maps.event.addListener(marker, 'mouseleave', function() {
+      infowindow.close();
+    });
+  };
 
   var mapOptions = {
     center: new google.maps.LatLng(37.7833, -122.4167),
@@ -35,9 +47,9 @@ journeatApp.controller('journeatCtrl', function($scope){
       origin: $scope.start,
       destination: $scope.end,
       travelMode: google.maps.TravelMode.DRIVING
-    }
+    };
 
-    directionsService.route(request, function(response, status){
+    directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
         startlat = response.routes[0].legs[0].start_location.k;
@@ -55,15 +67,13 @@ journeatApp.controller('journeatCtrl', function($scope){
             end_lng: endlng,
             term: $scope.search
           }
-        }).done(function(data){
-          for(var i=0; i< data.length; i++)
-          {
+        }).done(function(data) {
+          for (var i = 0; i < data.length; i++) {
             var latlng = new google.maps.LatLng(data[i].lat, data[i].lng)
             addMarkers(latlng, data[i].name)
-
           }
         });
       }
     });
   }
-})
+});
