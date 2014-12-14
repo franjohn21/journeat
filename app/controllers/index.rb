@@ -17,26 +17,17 @@ get '/' do
 end
 
 post '/search' do
-
-
-  # bounding_box = {
-  #   sw_latitude: [params[:start_lat].to_f, params[:end_lat].to_f].min,
-  #   sw_longitude: [params[:start_lng].to_f, params[:end_lng].to_f].min,
-  #   ne_latitude: [params[:start_lat].to_f, params[:end_lat].to_f].max,
-  #   ne_longitude: [params[:start_lng].to_f, params[:end_lng].to_f].max
-  # }
-
   results = []
-   params[:coords].each do |coord|
+  params[:coords].each do |coord|
     response = $yelp.search_by_coordinates(coord[1], { term: params[:term], radius_filter: params[:radius] })
     response.businesses.each do |business|
       results.push({
         "name" => business.name,
         "lat" => business.location.coordinate.latitude,
-        "lng" => business.location.coordinate.longitude
-        "image" => business.image_url,
-        "rating" => business.rating_img_url,
-        "snippet" => business.snippet_text,
+        "lng" => business.location.coordinate.longitude,
+        "image" => business.keys.include?("image_url") ? business.image_url : "",
+        "rating" => business.keys.include?("rating_img_url") ?  business.rating_img_url : "",
+        "snippet" => business.keys.include?("snippet_text") ?  business.snippet_text : "",
         "url" => business.url
       })
     end

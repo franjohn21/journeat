@@ -36,10 +36,6 @@ journeatApp.controller('journeatCtrl', function($scope) {
     });
 
     markers.push(marker);
-
-    google.maps.event.addListener(marker, 'mouseout', function() {
-      infowindow.close();
-    });
   };
 
   var mapOptions = {
