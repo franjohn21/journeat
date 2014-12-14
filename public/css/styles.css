@@ -41,18 +41,21 @@
   margin-left: 0;
 }
 
-#submit {
+#submit, .routebutton{
   padding: 0;
   border: 1px solid #ccc;
   color: white;
   transition: 0.5s;
 }
 
-#submit:hover {
+#submit:hover, .routebutton:hover {
   color: #ccc;
   background-color: white;
 }
-
+.routebutton{
+  padding:3px 15px;
+  margin-bottom:10px;
+}
 .info-window {
   line-height: 1.35;
   overflow: hidden;

@@ -8,7 +8,6 @@ journeatApp.controller('journeatCtrl', function($scope) {
   var startlat, startlng, endlat, endlng;
   var markers = [];
   var infowindows = []
-
   var addMarkers = function(latlng, data) {
     var marker = new google.maps.Marker({
       position: latlng,
@@ -16,11 +15,12 @@ journeatApp.controller('journeatCtrl', function($scope) {
       title: data.name,
       animation: google.maps.Animation.DROP
     });
-
     var content = [
       '<div class="info-window">',
       '<img class="info-image" src="' + data.image + '" />',
       '<a href="' + data.url + '" target="_blank" class="info-name">' + data.name + '</a>',
+      '<br />',
+      '<button class="routebutton" data-lat="'+latlng.lat()+'" data-long="'+latlng.lng()+'">Hot Route! </button>',
       '<br />',
       '<img class="info-rating" src="' + data.rating_image + '" />',
       '<p class="info-text">' + data.snippet + '</p>',
@@ -39,7 +39,28 @@ journeatApp.controller('journeatCtrl', function($scope) {
 
     markers.push(marker);
   };
+  var reRoute = function(data)
+  {
+    waylat = $(this).attr("data-lat")
+    waylong = $(this).attr("data-long")
+    var request = {
+      origin: $scope.start,
+      destination: $scope.end,
+      waypoints: [{location: waylat +" "+ waylong, stopover:true  }],
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING
+    };
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      }
+    });
+    clearInfoWindows();
 
+  }
+
+  $('body').on('click', '.routebutton', reRoute)
+  // google.maps.event.addListener(document.getElementsByClassName('.routebutton'), 'click', reRoute)
   var mapOptions = {
     center: new google.maps.LatLng(37.7833, -122.4167),
     zoom: 12
@@ -48,7 +69,7 @@ journeatApp.controller('journeatCtrl', function($scope) {
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   var directionsDisplay = new google.maps.DirectionsRenderer();
   var directionsService = new google.maps.DirectionsService();
-  var numrequests = 15
+  var numrequests = 5
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById('directions-panel'));
   var clearInfoWindows = function(){
@@ -72,11 +93,9 @@ journeatApp.controller('journeatCtrl', function($scope) {
 
     directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
-        console.log(response)
         directionsDisplay.setDirections(response);
         startlat = response.routes[0].legs[0].start_location.k;
         startlng = response.routes[0].legs[0].start_location.D;
-
         var coords = [
           {latitude: startlat, longitude: startlng}
         ]
@@ -110,3 +129,5 @@ journeatApp.controller('journeatCtrl', function($scope) {
     });
   }
 });
+
+
