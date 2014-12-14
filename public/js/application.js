@@ -7,6 +7,7 @@ journeatApp.controller('journeatCtrl', function($scope) {
 
   var startlat, startlng, endlat, endlng;
   var markers = [];
+  var infowindows = []
 
   var addMarkers = function(latlng, data) {
     var marker = new google.maps.Marker({
@@ -30,8 +31,9 @@ journeatApp.controller('journeatCtrl', function($scope) {
       content: content,
       maxWidth: 300
     });
-
+    infowindows.push(infowindow)
     google.maps.event.addListener(marker, 'click', function() {
+      clearInfoWindows();
       infowindow.open(map, marker);
     });
 
@@ -49,7 +51,11 @@ journeatApp.controller('journeatCtrl', function($scope) {
   var numrequests = 15
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById('directions-panel'));
-
+  var clearInfoWindows = function(){
+    for(var k=0; k < infowindows.length; k++){
+      infowindows[k].close();
+    }
+  }
   var clearMarkers = function() {
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
