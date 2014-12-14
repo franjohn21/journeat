@@ -1,5 +1,5 @@
 /* CSS declarations go here */
-body {font-family: Vollkorn; font-size: 160%; line-height: 160%; }
+body {font-family: Vollkorn; font-size: 100%; line-height: 100%; }
 h1, h2, h3, h4, h5, h6 {font-family: Georgia; line-height:100%; margin-top: 0.5em; margin-bottom: 0.5em; color: #36AECC; font-style: italic; font-weight: 400;}
 h1 {font-size: 1.8em;}
 h2 {font-size: 1.6em;}
@@ -27,8 +27,6 @@ del {text-decoration: line-through; color: #777777;}
 .center {margin-left: auto; margin-right: auto;}
 
 footer { font-size: 0.7em; margin-top: 2em;}
-
-#content { margin: 0 auto; padding: 0 1em; max-width: 37em; position: relative; width: 61.8%;}
 
 a {
     color: #36AECC;

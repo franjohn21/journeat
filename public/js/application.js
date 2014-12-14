@@ -21,7 +21,7 @@ journeatApp.controller('journeatCtrl', function($scope) {
       '<img class="info-image" src="' + data.image + '" />',
       '<a href="' + data.url + '" target="_blank" class="info-name">' + data.name + '</a>',
       '<br />',
-      '<img class="info-rating" src="' + data.rating + '" />',
+      '<img class="info-rating" src="' + data.rating_image + '" />',
       '<p class="info-text">' + data.snippet + '</p>',
       '</div>'
     ].join('');
@@ -43,11 +43,12 @@ journeatApp.controller('journeatCtrl', function($scope) {
     zoom: 12
   };
 
-  var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   var directionsDisplay = new google.maps.DirectionsRenderer();
   var directionsService = new google.maps.DirectionsService();
   var numrequests = 15
   directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('directions-panel'));
 
   var clearMarkers = function() {
     for (var i = 0; i < markers.length; i++) {

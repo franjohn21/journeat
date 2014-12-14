@@ -1,3 +1,58 @@
+*:focus {
+  outline: 0;
+}
+
+#navbar {
+  position: relative;
+  width: 100%;
+  height: 75px;
+  background-color: #303030;
+}
+
+#name {
+  position: relative;
+  margin-left: 25px;
+  color: white;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5em;
+}
+
+#search {
+}
+
+#queryform {
+  margin: 10px auto;
+  width: 80%;
+}
+
+#queryform input {
+  margin-left: 10px;
+  width: 24%;
+}
+
+.search-field {
+  padding-left: 5px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+
+#queryform input:first-child {
+  margin-left: 0;
+}
+
+#submit {
+  padding: 0;
+  border: 1px solid #ccc;
+  color: white;
+  transition: 0.5s;
+}
+
+#submit:hover {
+  color: #ccc;
+  background-color: white;
+}
+
 .info-window {
   line-height: 1.35;
   overflow: hidden;
@@ -23,4 +78,26 @@
   font-size: 1em;
   line-height: 1em;
   margin-bottom: 0;
+}
+
+#map-canvas {
+  float: left;
+  display: inline-block;
+  width: 50%;
+}
+
+#directions-panel {
+  float: right;
+  display: inline-block;
+  width: 49%;
+  line-height: 125%;
+}
+
+#directions-panel table {
+  width: 100%;
+  margin-top: 0;
+}
+
+#directions-panel td {
+  border: none;
 }
