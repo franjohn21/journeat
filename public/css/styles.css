@@ -44,8 +44,9 @@
   color:gray;
 }
 #submit, .routebutton{
-  padding: 10;
+  padding: 3px;
   border: 1px solid #ccc;
+  background-color:#ccc;
   color: white;
   transition: 0.5s;
 }
