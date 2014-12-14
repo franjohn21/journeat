@@ -1,0 +1,26 @@
+.info-window {
+  line-height: 1.35;
+  overflow: hidden;
+}
+
+.info-image {
+  display: block;
+  margin-bottom: 0;
+}
+
+.info-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.info-rating {
+  display: block;
+  margin-bottom: 0;
+}
+
+.info-text {
+  font-size: 1em;
+  line-height: 1em;
+  margin-bottom: 0;
+}
