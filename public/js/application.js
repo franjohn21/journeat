@@ -6,29 +6,36 @@ journeatApp.controller('journeatCtrl', function($scope) {
   $scope.search = ""
 
   var startlat, startlng, endlat, endlng;
+  var markers = [];
 
-  var addMarkers = function(latlng, name) {
-    console.log(name);
-
+  var addMarkers = function(latlng, data) {
     var marker = new google.maps.Marker({
       position: latlng,
       map: map,
-      title: name,
+      title: data.name,
       animation: google.maps.Animation.DROP
     });
 
-    var content = '<strong>' + name + '</strong>';
+    var content = [
+      '<div class="info-window">',
+      '<img class="info-image" src="' + data.image + '" />',
+      '<a href="' + data.url + '" target="_blank" class="info-name">' + data.name + '</a>',
+      '<br />',
+      '<img class="info-rating" src="' + data.rating + '" />',
+      '<p class="info-text">' + data.snippet + '</p>',
+      '</div>'
+    ].join('');
+
     var infowindow = new google.maps.InfoWindow({
-      content: content
+      content: content,
+      maxWidth: 300
     });
 
-    google.maps.event.addListener(marker, 'mouseover', function() {
+    google.maps.event.addListener(marker, 'click', function() {
       infowindow.open(map, marker);
     });
 
-    google.maps.event.addListener(marker, 'mouseleave', function() {
-      infowindow.close();
-    });
+    markers.push(marker);
   };
 
   var mapOptions = {
@@ -42,7 +49,14 @@ journeatApp.controller('journeatCtrl', function($scope) {
 
   directionsDisplay.setMap(map);
 
+  var clearMarkers = function() {
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+  };
+
   $scope.handleQuery = function() {
+    clearMarkers();
     var request = {
       origin: $scope.start,
       destination: $scope.end,
@@ -70,7 +84,7 @@ journeatApp.controller('journeatCtrl', function($scope) {
         }).done(function(data) {
           for (var i = 0; i < data.length; i++) {
             var latlng = new google.maps.LatLng(data[i].lat, data[i].lng)
-            addMarkers(latlng, data[i].name)
+            addMarkers(latlng, data[i])
           }
         });
       }

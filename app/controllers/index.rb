@@ -7,6 +7,11 @@ $yelp = Yelp::Client.new({
   token_secret: "vWr4aIV3iwgib9F9mrTHKFTob_E"
 })
 
+# response = $yelp.search("coffee San Francisco, CA")
+# p response.businesses[0].image_url
+# p response.businesses[0].rating_img_url
+# p response.businesses[0].snippet_text
+
 get '/' do
   File.read(File.join('public', 'index.html'))
 end
@@ -25,7 +30,11 @@ post '/search' do
     results.push({
       "name" => business.name,
       "lat" => business.location.coordinate.latitude,
-      "lng" => business.location.coordinate.longitude
+      "lng" => business.location.coordinate.longitude,
+      "image" => business.image_url,
+      "rating" => business.rating_img_url,
+      "snippet" => business.snippet_text,
+      "url" => business.url
     })
   end
 
