@@ -6,7 +6,7 @@
 
 #### Technologies:
 - Sinatra Backend
-- Angular JS (In essence it's mostly Vanilla JS but we setup Angular to play around with it)
+- Vanilla Javascript/AngularJS
 - jQuery/Ajax
 - Consumes Google Maps API
 - Consumes Yelp API
