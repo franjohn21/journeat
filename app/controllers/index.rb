@@ -13,10 +13,10 @@ end
 
 post '/search' do
   bounding_box = {
-    sw_latitutde: [params[:start_lat], params[:end_lat]].min,
-    sw_longitude: [params[:start_lng], params[:end_lng]].min,
-    ne_latitutde: [params[:start_lat], params[:end_lat]].max,
-    ne_longitude: [params[:start_lng], params[:end_lng]].max
+    sw_latitude: [params[:start_lat].to_f, params[:end_lat].to_f].min,
+    sw_longitude: [params[:start_lng].to_f, params[:end_lng].to_f].min,
+    ne_latitude: [params[:start_lat].to_f, params[:end_lat].to_f].max,
+    ne_longitude: [params[:start_lng].to_f, params[:end_lng].to_f].max
   }
 
   results = []
