@@ -14,9 +14,8 @@ journeatApp.controller('journeatCtrl', function($scope) {
       position: latlng,
       map: map,
       title: data.name,
-      animation: google.maps.Animation.DROP    
+      animation: google.maps.Animation.DROP
     });
-
     var content = [
       '<div class="info-window">',
       '<img class="info-image" src="' + data.image + '" />',
