@@ -86,6 +86,7 @@ journeatApp.controller('journeatCtrl', function($scope) {
   };
 
   $scope.handleQuery = function() {
+    $('#directions-panel').removeClass("hidden")
     $("#submit").html('<i class="fa fa-spin fa-spinner"></i>')
     waypoints = [];
     clearMarkers();
@@ -98,6 +99,7 @@ journeatApp.controller('journeatCtrl', function($scope) {
     directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
+        $('#map-canvas').animate({width: '50%'});
         startlat = response.routes[0].legs[0].start_location.k;
         startlng = response.routes[0].legs[0].start_location.D;
         var coords = [
@@ -113,6 +115,7 @@ journeatApp.controller('journeatCtrl', function($scope) {
         }
         endlat = response.routes[0].legs[0].end_location.k;
         endlng = response.routes[0].legs[0].end_location.D;
+
         coords.push({latitude: endlat, longitude: endlng})
         $.ajax({
           url: '/search',

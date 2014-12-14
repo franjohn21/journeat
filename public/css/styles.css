@@ -1,7 +1,9 @@
 *:focus {
   outline: 0;
 }
-
+.hidden{
+  display:none;
+}
 #navbar {
   position: relative;
   width: 100%;
@@ -20,6 +22,18 @@
 
 #search {
 }
+
+.clearfix{
+  overflow: auto;
+}
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
 .center{
   width:80%;
   margin: 0px auto;
@@ -89,7 +103,7 @@
 #map-canvas {
   float: left;
   display: inline-block;
-  width: 50%;
+  width: 100%;
 }
 
 #directions-panel {
