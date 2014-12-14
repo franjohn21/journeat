@@ -20,14 +20,20 @@
 </head>
 <body>
 <div id="content" ng-controller="journeatCtrl">
-  <form id="queryform" ng-submit="handleQuery()" >
-    <input placeholder="Enter Starting Point" name="start" ng-model="start" />
-    <input placeholder="Enter Ending Point" name="end" ng-model="end" />
-    <input placeholder="Search for" name="search" ng-model="search" />
-    <input type="submit" />
-  </form>
+  <div id="navbar">
+    <div id="name">journeat</div>
+  </div>
+  <div id="search">
+    <form id="queryform" ng-submit="handleQuery()" >
+      <input class="search-field" placeholder="Enter Starting Point" name="start" ng-model="start" />
+      <input class="search-field" placeholder="Enter Ending Point" name="end" ng-model="end" />
+      <input class="search-field" placeholder="Search for" name="search" ng-model="search" />
+      <input id="submit" type="submit" />
+    </form>
+  </div>
 </div>
 <div id="map-canvas"></div>
+<div id="directions-panel"></div>
 <script type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF7bNkrouk4BrhFzk3mFUIRlBceQsKxXo"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

@@ -20,15 +20,16 @@ post '/search' do
   results = []
   params[:coords].each do |coord|
     response = $yelp.search_by_coordinates(coord[1], { term: params[:term], radius_filter: params[:radius] })
-    response.businesses.each do |business|
+    response.businesses[0..4].each do |business|
       results.push({
         "name" => business.name,
         "lat" => business.location.coordinate.latitude,
         "lng" => business.location.coordinate.longitude,
         "image" => business.keys.include?("image_url") ? business.image_url : "",
-        "rating" => business.keys.include?("rating_img_url") ?  business.rating_img_url : "",
+        "rating_image" => business.keys.include?("rating_img_url") ?  business.rating_img_url : "",
         "snippet" => business.keys.include?("snippet_text") ?  business.snippet_text : "",
-        "url" => business.url
+        "url" => business.url,
+        "rating" => business.rating
       })
     end
   end
