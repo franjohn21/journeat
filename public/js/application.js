@@ -8,7 +8,6 @@ journeatApp.controller('journeatCtrl', function($scope) {
   var startlat, startlng, endlat, endlng;
 
   var addMarkers = function(latlng, name) {
-    console.log(name);
 
     var marker = new google.maps.Marker({
       position: latlng,
@@ -25,10 +24,11 @@ journeatApp.controller('journeatCtrl', function($scope) {
     google.maps.event.addListener(marker, 'mouseover', function() {
       infowindow.open(map, marker);
     });
-
-    google.maps.event.addListener(marker, 'mouseleave', function() {
+    google.maps.event.addListener(marker, 'mouseout', function() {
       infowindow.close();
     });
+
+
   };
 
   var mapOptions = {
@@ -51,20 +51,31 @@ journeatApp.controller('journeatCtrl', function($scope) {
 
     directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
+        console.log(response)
         directionsDisplay.setDirections(response);
         startlat = response.routes[0].legs[0].start_location.k;
         startlng = response.routes[0].legs[0].start_location.D;
+
+        var coords = [
+          {latitude: startlat, longitude: startlng}
+        ]
+        var radius = response.routes[0].legs[0].distance.value/6
+        for(var i = response.routes[0].overview_path.length/5; i < response.routes[0].overview_path.length; i += response.routes[0].overview_path.length/5)
+        {
+          var latitude = response.routes[0].overview_path[i].k
+          var longitude = response.routes[0].overview_path[i].D
+          coords.push({latitude: latitude, longitude: longitude})
+        }
         endlat = response.routes[0].legs[0].end_location.k;
         endlng = response.routes[0].legs[0].end_location.D;
+        coords.push({latitude: endlat, longitude: endlng})
 
         $.ajax({
           url: '/search',
           method: 'POST',
           data: {
-            start_lat: startlat,
-            start_lng: startlng,
-            end_lat: endlat,
-            end_lng: endlng,
+            coords: coords,
+            radius: radius,
             term: $scope.search
           }
         }).done(function(data) {
