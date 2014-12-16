@@ -103,7 +103,7 @@
 #map-canvas {
   float: left;
   display: inline-block;
-  width: 100%;
+  width: 50%;
 }
 
 #directions-panel {

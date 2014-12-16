@@ -99,7 +99,6 @@ journeatApp.controller('journeatCtrl', function($scope) {
     directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
-        $('#map-canvas').animate({width: '50%'});
         startlat = response.routes[0].legs[0].start_location.k;
         startlng = response.routes[0].legs[0].start_location.D;
         var coords = [
